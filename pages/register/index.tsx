@@ -20,12 +20,17 @@ const RegisterPage = () => {
 			return
 		}
 
-		const { data } = await axios.post('/api/auth/register', userData, {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
-		console.log('register Response>>>>>>>>>>>', data)
+		try {
+			const { data } = await axios.post('/api/auth/register', userData, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			localStorage.setItem('userInfo', JSON.stringify(data.createdUser))
+			localStorage.setItem('token', data.token)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (
