@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 
+const inputClassnames = 'border-2 border-gray-300 p-2 rounded-md w-96'
+
 const RegisterPage = () => {
 	const [userData, setUserData] = useState({
 		fname: '',
@@ -29,13 +31,15 @@ const RegisterPage = () => {
 	return (
 		<form
 			onSubmit={registerHandler}
-			className='flex flex-col items-center justify-center gap-3'>
+			className='flex flex-col items-center justify-center gap-3 p-6 border'>
 			<input
 				type='text'
 				name='fname'
 				onChange={(e) =>
 					setUserData((prev) => ({ ...prev, fname: e.target.value }))
 				}
+				placeholder='First Name'
+				className={inputClassnames}
 			/>
 			<input
 				type='text'
@@ -43,6 +47,8 @@ const RegisterPage = () => {
 				onChange={(e) =>
 					setUserData((prev) => ({ ...prev, lname: e.target.value }))
 				}
+				placeholder='Last Name'
+				className={inputClassnames}
 			/>
 			<input
 				type='number'
@@ -50,6 +56,8 @@ const RegisterPage = () => {
 				onChange={(e) =>
 					setUserData((prev) => ({ ...prev, phone: e.target.value }))
 				}
+				placeholder='Phone Number'
+				className={inputClassnames}
 			/>
 
 			<input
@@ -58,6 +66,8 @@ const RegisterPage = () => {
 				onChange={(e) =>
 					setUserData((prev) => ({ ...prev, email: e.target.value }))
 				}
+				placeholder='Email Address'
+				className={inputClassnames}
 			/>
 			<input
 				type='password'
@@ -68,15 +78,19 @@ const RegisterPage = () => {
 						password: e.target.value,
 					}))
 				}
+				placeholder='Password'
+				className={inputClassnames}
 			/>
 			<input
 				type='password'
 				name='confirm password'
 				onChange={(e) => setConfirmPassword(e.target.value)}
+				placeholder='Confirm Password'
+				className={inputClassnames}
 			/>
 			<button
 				type='submit'
-				className='bg-black text-white'>
+				className='bg-black text-white p-2'>
 				Register
 			</button>
 		</form>
