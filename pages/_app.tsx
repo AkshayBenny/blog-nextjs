@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<Component {...pageProps} />
+    <Component {...pageProps} />
 		// <Provider store={store}>
 		// </Provider>
 	)

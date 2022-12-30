@@ -7,7 +7,6 @@ const Navbar = ({ userData }: any) => {
 		localStorage.removeItem('token')
 		router.reload()
 	}
-	console.log(userData)
 	return (
 		<div className='flex items-center justify-between w-full h-12 bg-black text-white px-6 lg:px-16 '>
 			<p className=''>
