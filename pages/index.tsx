@@ -10,7 +10,6 @@ export default function Home({ products }) {
 			<div className='flex items-center justify-center flex-wrap gap-4'>
 				{products &&
 					JSON.parse(products).map((product: any) => {
-            console.log(product._id)
 						return (
 							<div
 								key={product._id}
@@ -38,6 +37,5 @@ export async function getServerSideProps() {
 		product._id = product._id.toString()
 		return product
 	})
-
 	return { props: { products: JSON.stringify(products) } }
 }
