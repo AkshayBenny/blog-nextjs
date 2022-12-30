@@ -21,38 +21,31 @@ export default async function handler(
 		)
 		try {
 			// verify token
-			const { payload, protectedHeader } = await jwtVerify(
-				token,
-				secret,
-				{
-					issuer: 'iss', // issuer
-					audience: 'aud', // audience
+			await jwtVerify(token, secret, {
+				issuer: 'iss', // issuer
+				audience: 'aud', // audience
+			})
+			const { uid } = req.body
+			let userCart
+			try {
+				const cartExists = await Cart.findOne({
+					user: uid,
+				})
+				if (cartExists) {
+					res.status(201).json({ userCart })
 				}
-			)
-			// log values to console
-			console.log(payload)
-			console.log(protectedHeader)
+			} catch (error) {
+				console.log(error)
+				res.status(404).json({
+					message: 'Failed to fetch cart associated with the uid',
+				})
+			}
+
+			res.json({ userCart })
 		} catch (e) {
 			// token verification failed
 			console.log('Token is invalid')
+			res.status(401).json({ message: 'Token is invalid.' })
 		}
 	}
-
-	const { uid } = req.body
-	let userCart
-	try {
-		const cartExists = await Cart.findOne({
-			user: uid,
-		})
-		if (cartExists) {
-			res.status(201).json({ userCart })
-		}
-	} catch (error) {
-		console.log(error)
-		res.status(404).json({
-			message: 'Failed to fetch cart associated with the uid',
-		})
-	}
-
-	res.json({ userCart })
 }

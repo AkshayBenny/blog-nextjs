@@ -17,18 +17,22 @@ const Cart = () => {
 	useEffect(() => {
 		const fetchUserCart = async () => {
 			if (user) {
-				const { data } = await axios.post(
-					'/api/cart',
-					{ uid: user._id },
-					{
-						headers: {
-							'Content-Type': 'application/json',
-							Accept: 'application/json',
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				)
-				// console.log(user)
+				try {
+					const { data } = await axios.post(
+						'/api/cart',
+						{ uid: user._id },
+						{
+							headers: {
+								'Content-Type': 'application/json',
+								Accept: 'application/json',
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					)
+					console.log(data)
+				} catch (error) {
+					console.log(error)
+				}
 			}
 		}
 		try {
