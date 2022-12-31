@@ -33,6 +33,9 @@ export default async function handler(
 				})
 				if (cartExists) {
 					res.status(201).json({ userCart })
+				} else {
+					//create a new cart
+					const newCart = await Cart.create({})
 				}
 			} catch (error) {
 				console.log(error)
