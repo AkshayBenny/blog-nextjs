@@ -1,7 +1,10 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { getUser } from '../../store/slices/userSlice'
 
 const Signin = () => {
+	const dispatch = useDispatch()
+
 	const [userData, setUserData] = useState({
 		email: '',
 		password: '',
@@ -9,18 +12,7 @@ const Signin = () => {
 
 	const signinHandler = async (e: any) => {
 		e.preventDefault()
-		try {
-			const { data } = await axios.post('/api/auth/signin', userData, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-			localStorage.setItem('userInfo', JSON.stringify(data.user))
-			localStorage.setItem('token', data.token)
-		} catch (error) {
-			console.log(error)
-			window.alert('Something went wrong.')
-		}
+		dispatch(getUser({ userData }))
 	}
 
 	return (

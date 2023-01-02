@@ -5,11 +5,19 @@ import Navbar from '../components/Navbar'
 
 const Cart = () => {
 	const router = useRouter()
-	const [user, setUser] = useState({})
-	const [token, setToken] = useState(null)
+	const [user, setUser] = useState({
+		_id: '',
+		fname: '',
+		lname: '',
+		email: '',
+		phone: '',
+		isAdmin: '',
+	})
+	const [token, setToken] = useState('')
 	useEffect(() => {
 		const myToken = localStorage.getItem('token')
-		const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+		const unparsedUserInfo = localStorage.getItem('userInfo')
+		const userInfo = unparsedUserInfo && JSON.parse(unparsedUserInfo)
 		userInfo && setUser(userInfo)
 		myToken ? setToken(myToken) : router.push('/signin')
 	}, [])

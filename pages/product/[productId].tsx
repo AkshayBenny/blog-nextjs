@@ -7,12 +7,20 @@ import Product from '../../models/productModel'
 
 const ProductId = ({ product }: any) => {
 	const [qty, setQty] = useState(1)
-	const [user, setUser] = useState({})
+	const [user, setUser] = useState({
+		_id: '',
+		fname: '',
+		lname: '',
+		email: '',
+		phone: '',
+		isAdmin: '',
+	})
 	const router = useRouter()
 	const productData = JSON.parse(product)
 
 	useEffect(() => {
-		const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+		const unpatsedUserInfo = localStorage.getItem('userInfo')
+		const userInfo = unpatsedUserInfo && JSON.parse(unpatsedUserInfo)
 		if (userInfo) setUser(userInfo)
 	}, [router, user])
 
@@ -53,7 +61,7 @@ const ProductId = ({ product }: any) => {
 			<div className='flex items-center justify-center gap-3 my-6'>
 				<button
 					className='bg-black text-white hover:bg-gray-800 transition px-4 py-2'
-					onClick={() => setQty((prev: any) => prev > 1 && prev - 1)}>
+					onClick={() => setQty((prev): any => prev > 1 && prev - 1)}>
 					-
 				</button>
 				<input
@@ -78,7 +86,7 @@ const ProductId = ({ product }: any) => {
 
 export default ProductId
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: any) {
 	await dbConnect()
 	const { productId: id } = params
 

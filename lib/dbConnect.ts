@@ -1,3 +1,4 @@
+// @ts-nocheck
 import mongoose from 'mongoose'
 
 const MONGO_URI = process.env.MONGO_URI
@@ -23,9 +24,11 @@ async function dbConnect() {
 			bufferCommands: false,
 		}
 
-		cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
-			return mongoose
-		})
+		cached.promise =
+			MONGO_URI &&
+			mongoose.connect(MONGO_URI, opts).then((mongoose) => {
+				return mongoose
+			})
 	}
 
 	try {

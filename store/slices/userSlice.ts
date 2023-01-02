@@ -1,14 +1,16 @@
-import {
-	createSlice,
-	Draft,
-	PayloadAction,
-	createAsyncThunk,
-} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import dbConnect from '../../lib/dbConnect'
+import axios from 'axios'
 
 export interface UserState {
 	status: 'idle' | 'loading' | 'failed'
 	user: object
 	error: string | null | object
+}
+
+interface SigninParams {
+	email: string
+	password: string
 }
 
 // Default state object with initial values.
@@ -19,12 +21,30 @@ const initialState: UserState = {
 } as const
 
 // Thunks
-export const getUser = createAsyncThunk('user/fetch', async () => {
-	const response = await fetch(`https://jsonplaceholder.typicode.com/todos`)
-	const data = await response.json()
+export const getUser = createAsyncThunk(
+	'user/signin',
+	async (params: SigninParams) => {
+		await dbConnect()
+		const { email, password } = params
+		
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+		}
+		const { data } = await axios.post(
+			'/api/signin',
+			{ email, password },
+			config
+		)
 
-	return data
-})
+		localStorage.setItem('userInfo', JSON.stringify(data))
+		localStorage.setItem('token', data.token)
+
+		return data
+	}
+)
 
 //Slice
 export const userSlice = createSlice({

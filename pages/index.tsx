@@ -2,7 +2,7 @@ import Link from 'next/link'
 import dbConnect from '../lib/dbConnect'
 import Product from '../models/productModel'
 
-export default function Home({ products }) {
+export default function Home({ products }: any) {
 	if (!products) return <div>Loading...</div>
 	return (
 		<div>
