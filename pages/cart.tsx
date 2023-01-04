@@ -1,10 +1,13 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+
 import Navbar from '../components/Navbar'
 
 const Cart = () => {
+	const [token, setToken] = useState('')
 	const router = useRouter()
+
 	const [user, setUser] = useState({
 		_id: '',
 		fname: '',
@@ -13,7 +16,6 @@ const Cart = () => {
 		phone: '',
 		isAdmin: '',
 	})
-	const [token, setToken] = useState('')
 	useEffect(() => {
 		const myToken = localStorage.getItem('token')
 		const unparsedUserInfo = localStorage.getItem('userInfo')
@@ -37,7 +39,7 @@ const Cart = () => {
 							},
 						}
 					)
-					console.log(data)
+					// console.log(data)
 				} catch (error) {
 					console.log(error)
 				}
@@ -49,6 +51,7 @@ const Cart = () => {
 			window.alert('Error fetching cart')
 		}
 	}, [token, user])
+
 	return (
 		<div>
 			<Navbar userData={user} />

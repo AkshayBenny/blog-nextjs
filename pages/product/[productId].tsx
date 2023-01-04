@@ -44,7 +44,7 @@ const ProductId = ({ product }: any) => {
 					},
 				}
 			)
-			console.log(data)
+			// console.log(data)
 		} catch (error) {
 			console.log(error)
 		}

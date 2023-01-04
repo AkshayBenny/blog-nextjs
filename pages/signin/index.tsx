@@ -1,10 +1,6 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { getUser } from '../../store/slices/userSlice'
 
 const Signin = () => {
-	const dispatch = useDispatch()
-
 	const [userData, setUserData] = useState({
 		email: '',
 		password: '',
@@ -12,7 +8,6 @@ const Signin = () => {
 
 	const signinHandler = async (e: any) => {
 		e.preventDefault()
-		dispatch(getUser({ userData }))
 	}
 
 	return (
@@ -38,7 +33,11 @@ const Signin = () => {
 						}))
 					}
 				/>
-				<button>Signin</button>
+				<button
+					type='submit'
+					className='bg-black text-white px-4 py-3 hover:bg-gray-800 transition'>
+					Signin
+				</button>
 			</form>
 		</div>
 	)
