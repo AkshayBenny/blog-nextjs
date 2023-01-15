@@ -16,6 +16,5 @@
 		"incremental": true
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"],
-	"plugins": [["@babel/plugin-proposal-decorators", { "legacy": true }]]
+	"exclude": ["node_modules"]
 }
